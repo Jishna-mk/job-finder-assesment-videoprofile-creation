@@ -1,0 +1,68 @@
+{%extends "job-list.html"%}
+{% block content %}
+{%load static%}
+
+
+<div class="jumbotron my-4">
+
+  <form class="form" autocomplete="off" onsubmit="return saveAns()" action="{% url 'calculate-marks' %}" method="POST">
+    {% csrf_token %}
+    <h2 class="mt-5" style="text-align: center;">Course: {{course.course_name}}</h2>
+    {% for q in questions %}
+        <h4 class="text-dark mt-5">{{ forloop.counter }}. {{q.question}}</h4><h4 style="text-align: right;">[{{q.marks}} Marks]</h4>
+
+        <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option1}}" value="Option1" required>
+            <label class="form-check-label" for="option1">
+                {{q.option1}}
+            </label>
+        </div>
+
+        <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option2}}" value="Option2" required>
+            <label class="form-check-label" for="option2">
+                {{q.option2}}
+            </label>
+        </div>
+
+        <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option3}}" value="Option3" required>
+            <label class="form-check-label" for="option3">
+                {{q.option3}}
+            </label>
+        </div>
+
+        <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option4}}" value="Option4" required>
+            <label class="form-check-label" for="option4">
+                {{q.option4}}
+            </label>
+        </div>
+
+    {% endfor %}
+    <input class="btn btn-success btn-lg" style="border-radius: 0%;" type="submit" value="Submit Answers">
+</form>
+
+</div>
+  <script> 
+    function saveAns() {  
+        var ele = document.getElementsByTagName('input'); 
+        for (i = 0; i < ele.length; i++) { 
+            if (ele[i].type == "radio") {  // Use double equals for comparison
+                if (ele[i].checked) {        
+                    setCookie(ele[i].name, ele[i].value, 3);
+                }
+            } 
+        } 
+    }
+    
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+</script> 
+
+<br><br><br><br><br><br>
+{% endblock content %}

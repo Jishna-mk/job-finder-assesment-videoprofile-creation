@@ -1,0 +1,40 @@
+{%extends "company/company_joblist.html" %}
+{%load static%}
+{%block content%}
+<div class="container mt-4">
+    <h1 class="mb-4">All Job Applications</h1>
+
+    {% if all_applications %}
+        <div class="row">
+            {% for application in all_applications %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Job Title: {{ application.job.Job_name }}</h5>
+                            <p class="card-text">
+                                <strong style="color: rgb(9, 128, 86);">User:</strong> {{ application.user.username }}<br>
+                                <strong style="color: rgb(42, 105, 82);">Contact Email:</strong> {{ application.email }}<br>
+                                <strong style="color: rgb(42, 105, 82);">Qualification:</strong> {{ application.qualification }}<br>
+                                <strong style="color: rgb(42, 105, 82);">Application Date:</strong> {{ application.application_date }}<br>
+                                <strong style="color: rgb(42, 105, 82);">Resume:</strong>
+                                {% if application.resume %}
+                                    <a href="{{ application.resume.url }}" download="{{ application.resume.name }}">Download Resume</a>
+                                    <!-- Alternatively, you can provide a link to view the resume -->
+                                    <!-- <a href="{{ application.resume.url }}" target="_blank">View Resume</a> -->
+                                {% else %}
+                                    No resume uploaded
+                                {% endif %}
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No job applications found.</p>
+    {% endif %}
+</div>
+
+
+{%endblock%}

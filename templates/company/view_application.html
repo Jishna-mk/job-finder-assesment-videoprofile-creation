@@ -1,0 +1,25 @@
+
+{%block content%}
+<div class="container mt-4">
+    <h1 class="mb-4">Job Application Details</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Job Title: {{ user_application.job.Job_name }}</h5>
+            <!-- Include other fields as needed -->
+            <p class="card-text">
+                <strong>User:</strong> {{ user_application.user.username }}<br>
+                <strong>Email:</strong> {{ user_application.email }}<br>
+                <strong>Location:</strong> {{ user_application.location }}<br>
+                <strong>Contact:</strong> {{ user_application.contact }}<br>
+                <strong>Qualification:</strong> {{ user_application.get_qualification_display }}<br>
+                <strong>Experience:</strong> {{ user_application.get_experience_display }}<br>
+                <strong>Skills:</strong> {{ user_application.skills }}<br>
+                <strong>Application Date:</strong> {{ user_application.application_date }}<br>
+            </p>
+            <button><a href="{% url 'view_application' %}">Back to All Applications</a></button>
+        </div>
+    </div>
+</div>
+ 
+{%endblock%}

@@ -1,0 +1,37 @@
+{% extends "job-list.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Media Recorder in Javascript</title>
+    <link rel="stylesheet" href="{%static 'js\css\main.css' %}" />
+  </head>
+  <body>
+    <div id="container">
+      <h5 class="text-center">Create Video Profile & Virtual Meet</h5>
+      <video id="gum" playsinline autoplay controls style="max-width: 600px;"></video>
+      <video id="recorded" playsinline loop style="max-width: 600px;"></video>
+      <div>
+        
+        <p>
+          Echo cancellation: <input type="checkbox" id="echoCancellation" />
+        </p>
+      </div>
+      <div>
+        <button id="start" class="btn btn-success">Start camera</button>
+        <button id="stopCamera" class="btn btn-danger">Stop Camera</button>
+        <button id="record" disabled class="btn btn-dark">Record</button>
+        <button id="play" disabled class="btn btn-warning">Play</button>
+        <button id="download" disabled class="btn btn-primary">Download</button>
+      </div>
+
+      
+
+      <div>
+        <span id="errorMsg"></span>
+      </div>
+    </div>
+  </body>
+  <script src="{%static 'js\index.js'%}"></script>
+{% endblock %}

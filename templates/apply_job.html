@@ -1,0 +1,135 @@
+{% extends "job-list.html" %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .navbar {
+        z-index: 2; /* Ensure the navbar is above other elements */
+    }
+
+    .alert {
+        position: fixed;
+        z-index: -1;
+        right: 100px;
+        top: 60px; /* Add a top margin to create space for the navbar */
+        width: 300px;
+    }
+    h2 {
+        color: #333;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .usebtn {
+        display: inline-block;
+        background-color:  #00B074;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .usebtn:hover {
+        background-color: #45a049;
+    }
+    /* Add this CSS to your existing styles or in a separate CSS file */
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    appearance: none; /* Remove default arrow on Firefox */
+    -webkit-appearance: none; /* Remove default arrow on Chrome and Safari */
+    background-color: white;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpath d='M1 1l5 4 5-4'/%3E%3C/svg%3E");
+    background-position: right 8px top 50%;
+    background-repeat: no-repeat;
+}
+
+/* Style when the dropdown is open */
+select:focus {
+    outline: none;
+    border-color: #66afe9; /* Change to your preferred focus color */
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.6); /* Change to your preferred focus shadow */
+}
+
+/* Style the dropdown arrow */
+select::-ms-expand {
+    display: none;
+}
+
+</style>
+{% for message in messages %}
+    <div class="alert alert-dark" role="alert" id="alertBox">
+        <h6>{{ message.message }}</h6>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+{% endfor %}
+<h2 class="text-center">Apply for {{ job.Job_name }}</h2>
+<form method="post" enctype="multipart/form-data" id="jobApplicationForm">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+
+    <button class="usebtn" type="submit" onclick="validateForm()">Submit Application</button>
+    
+</form>
+
+<script>
+    function validateForm() {
+        var form = document.getElementById('jobApplicationForm');
+        var resumeInput = document.getElementById('id_resume'); // Update 'id_resume' with the actual ID of your 'resume' field
+
+        // Check if the file extension is not PDF
+        if (resumeInput && resumeInput.files.length > 0) {
+            var fileName = resumeInput.files[0].name;
+            if (!fileName.toLowerCase().endsWith('.pdf')) {
+                alert('Only PDF files are allowed for the resume.');
+                return false; // Prevent form submission
+            }
+        }
+
+        // If validation passes, allow form submission
+        return true;
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var closeButtons = document.getElementsByClassName("closebtn");
+        for (var i = 0; i < closeButtons.length; i++) {
+            closeButtons[i].addEventListener("click", function() {
+                this.parentElement.style.display = "none";
+            });
+        }
+    });
+  </script>
+{% endblock %}

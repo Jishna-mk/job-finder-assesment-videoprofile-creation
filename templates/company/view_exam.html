@@ -1,0 +1,56 @@
+{%extends "company/company_joblist.html" %}
+{% block content %}
+{%load static%}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<head>
+  
+
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+<br><br>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Available Courses</h6>
+    </div>
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead class="bg-primary">
+        <tr>
+
+          <th>Course</th>
+          <th>Total Question</th>
+          <th>Total Marks</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      {% for t in courses %}
+      <tr>
+
+        <td> {{t.course_name}}</td>
+        <td>{{t.question_number}}</td>
+        <td>{{t.total_marks}}</td>
+        
+        <td><a class="btn btn-danger btn-xs" style="border-radius: 0%;" href="{% url 'delete-exam' t.id  %}"><i class="material-icons">delete</i></a></td>
+
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="{%url 'add-exam' %}" class="btn btn-primary">Add Courses</a>
+  </div>
+</div>
+
+<br><br><br><br><br><br>
+{% endblock content %}

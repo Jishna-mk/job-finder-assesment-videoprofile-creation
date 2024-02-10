@@ -1,0 +1,57 @@
+{% extends "company/company_joblist.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Add any necessary CSS styles here -->
+    <style>
+         .employee-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .profile-image {
+            max-width: 100%;
+            height: auto;
+        }
+        
+    </style>
+
+<body class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <div class="container">
+        <h4 class="text-center mt-4">Your Employee Profile</h4>
+    
+        <div class="employee-card mx-auto">
+            <h2>{{ employee.name }}</h2>
+            {% if employee.Profile_Image %}
+            <img class="profile-image" src="{{ employee.Profile_Image.url }}" alt="{{ employee.name }} Profile Image">
+            {% endif %}
+            <p><strong>Phone Number:</strong> {{ employee.Phone_Number }}</p>
+            <p><strong>Address:</strong> {{ employee.Address }}</p>
+            <p><strong>Designation:</strong> {{ employee.Designation }}</p>
+            <p><strong>User:</strong> {{ employee.user.username }}</p>
+            <a href="{%url  'view_company_messages' %}" class="btn btn-primary mt-4">view Messages
+            </a>
+        </div>
+    </div>
+    
+
+    
+    {% for message in messages %}
+    <div class="alert alert-danger alert-dismissible fade show" style="position: fixed;z-index: 90;right:100px;top:10px"
+        role="alert">
+        <strong>{{message}} !!!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+   
+    
+    
+ </body>
+
+{% endblock %}

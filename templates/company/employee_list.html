@@ -1,0 +1,43 @@
+{% extends "job-list.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+        .employee-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 100%; /* Set width to 100% for responsiveness */
+        }
+
+        .profile-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
+    <h4 class="text-center">Companies List</h4>
+
+    <div class="row">
+        {% for employee in employees %}
+            <div class="col-md-4"> <!-- Use Bootstrap grid system to arrange cards in the same row -->
+                <div class="employee-card">
+                    <h2>{{ employee.name }}</h2>
+                    {% if employee.Profile_Image %}
+                        <img class="profile-image" src="{{ employee.Profile_Image.url }}" alt="{{ employee.name }} Profile Image">
+                    {% endif %}
+                    <p><strong>Phone Number:</strong> {{ employee.Phone_Number }}</p>
+                    <p><strong>Address:</strong> {{ employee.Address }}</p>
+                    <p><strong>Designation:</strong> {{ employee.Designation }}</p>
+                    <p><strong>User:</strong> {{ employee.user.username }}</p>
+                    <p class="my-3 font-weight-bold">Send Message to Hr</p>
+                    <form action="{% url 'send_message'  employee.user.id %}" class="d-flex align-items-center" method="post">
+                        {% csrf_token %}
+                        <input type="text" class="w-75 border-secondary mr-2 p-2" name="message" placeholder="Enter message here..">
+                        <button class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "job-list.html" %} 
+{% block content %}
+    
+    <div class="container" style="height: 70vh;">
+        <h2 class="mt-4 mb-4 text-center" style="color: rgb(198, 188, 188);">Your Job Applications</h2>
+        {% if user_applications %}
+            <table class="table">
+                <tbody  style="border: 1px solid black;">
+                    {% for application in user_applications %}
+                        <tr>
+                            <td style="vertical-align: middle; margin-right: 30px;">
+                                <div style="display: flex; align-items: center; margin-right: 30px;">
+                                    <img class="img-fluid border rounded" src="{{ application.job.Company_image.url }}" alt="" style="width: 80px; height: 80px; margin-right: 20px;">
+                                    <div>
+                                        <h5 style="text-transform: capitalize; margin-bottom: 5px;">{{ application.job.Company_name }}</h5>
+                                        <h6 class="mb-0"><strong>{{ application.job.Job_name }}</strong></h6>
+                                        <p class="mb-0 small text-muted">Applied on: {{ application.application_date }}</p>
+                                        <!-- Add more details as needed -->
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="vertical-align: middle; text-align: center;">
+                                <form method="post" action="{% url 'withdraw_application' application.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Withdraw Application</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info mt-4">
+                <p class="mb-5">You haven't applied for any jobs yet.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+
+
+{%comment%}
+{% extends "job-detail.html" %} 
+{% block content %}
+    
+    <div class="container" style="height: 70vh;">
+        <h2 class="mt-4 mb-4">Your Job Applications</h2>
+        {% if user_applications %}
+            <ul class="list-group">
+                {% for application in user_applications %}
+                    <li class="list-group-item mb-3">
+                        <div class="d-flex justify-content-between ">
+                            <img class="flex-shrink-0 img-fluid border rounded" src="{{ application.job.Company_image.url }}" alt="" style="width: 80px; height: 80px;">
+                            <h5 style="text-transform: capitalize;">{{application.job.Company_name}}</h5>
+                            <div class="px-2">
+                                
+                                <h6 class="mb-0"><strong>{{ application.job.Job_name }}</strong></h6>
+                                <p class="mb-0 small text-muted">Applied on: {{ application.application_date }}</p>
+                                <!-- Add more details as needed -->
+                            </div>
+                            <div>
+                                <form method="post" action="{% url 'withdraw_application' application.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Withdraw Application</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-info mt-4">
+                <p class="mb-5">You haven't applied for any jobs yet.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+{%endcomment%}

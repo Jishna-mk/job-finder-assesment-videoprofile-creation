@@ -1,0 +1,60 @@
+{% extends "company/company_joblist.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .form-container {
+        margin-top: 5%;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 50%; 
+    }
+
+    
+    .form-group label {
+        display: block;
+        /* margin-bottom: 8px; */
+    }
+
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select,
+    .form-group input[type="file"] {
+        width: 100%;
+        padding: 5px;
+        /* margin-bottom: 10px; */
+        box-sizing: border-box;
+        border-radius: 10px;
+    }
+
+  
+    .text-center button {
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .text-center button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container form-container" data-aos="fade-up">
+    <div class="section-header text-center">
+        <h3>Edit Job</h3>
+    </div>
+
+    <form method="post" class="php-email-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p|safe }}
+        </div>
+        
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

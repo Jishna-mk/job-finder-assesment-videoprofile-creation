@@ -1,0 +1,98 @@
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+{% for message in messages %}
+    <div class="alert alert-dark" role="alert" id="alertBox">
+        <h6>{{ message.message }}</h6>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+{% endfor %}
+{% if form.errors %}
+<div class="alert alert-danger">
+    <strong>Error:</strong>
+    {{ form.errors }}
+</div>
+{% endif %}
+<main id="main">
+    <section id="contact" class="contact">
+        <div class="signup-container mt-5" data-aos="fade-up">
+            <div class="section-header text-center">
+                <h3>Company Registration</h3>
+            </div>
+            <div class="container-box-shadow">
+                <form method="post" class="php-email-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for field in form %}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ field.id }}">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <h3 class="mt-4 text-muted">Company Details</h3>
+                    <div class="row">
+                        {% for fields in company_form %}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ fields.id }}">{{ fields.label }}</label>
+                                {{ fields }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                    <h5 class="text-end mt-4" style="color: rgb(50, 92, 7);"><a href="{%url 'company_signin' %}" class="text-muted">Sign in</a></h5>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+    .container-box-shadow {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;  /* Optional: Add padding for better visual appearance */
+        margin-top: 20px; /* Optional: Add margin for better separation */
+    }
+    .signup-container {
+        max-width: 700px;
+        margin: auto;
+        margin-top: 50px;
+        padding: 20px;
+        border-radius: 10px;
+       
+    }
+
+    .form-group select,
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+        width: 100%;
+        border: 1px solid rgb(173, 173, 173);
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var closeButtons = document.getElementsByClassName("closebtn");
+        for (var i = 0; i < closeButtons.length; i++) {
+            closeButtons[i].addEventListener("click", function() {
+                this.parentElement.style.display = "none";
+            });
+        }
+    });
+  </script>
+{% endblock %}
