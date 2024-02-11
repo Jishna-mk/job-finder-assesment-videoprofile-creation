@@ -24,7 +24,10 @@
                                 {% else %}
                                     No resume uploaded
                                 {% endif %}
-
+                                <br><br>
+                                <strong style="color: rgb(5, 28, 75);">
+                                    <a href="{% url 'view_applicant' id=application.user.id %}">View Profile</a>
+                                </strong>
                             </p>
                         </div>
                     </div>

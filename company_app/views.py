@@ -165,6 +165,13 @@ def all_applications(request):
     return render(request, 'company/all_applications.html', {'all_applications': all_applications})
 
 
+from django.shortcuts import render, get_object_or_404
+from users_app.models import UserProfile
+
+def view_applicant(request, id):
+    user = get_object_or_404(UserProfile, user_ID=id)
+    return render(request, "company/user_profile.html", {"user": user})
+
 
 # from django.shortcuts import render, get_object_or_404
 # from users_app.models import JobApplication

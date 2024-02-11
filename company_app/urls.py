@@ -16,6 +16,7 @@ urlpatterns=[
     path('view_company_messages/', views.view_company_messages, name="view_company_messages"),
     path('reply_message/<int:id>', views.reply_message, name="reply_message"),
     path('send_message_to_user/', views.send_message_to_user, name='send_message_to_user'),
+    path('view-applicant/<int:id>/', views.view_applicant, name='view_applicant'),
     # path('view_application/<int:application_id>/', views.view_application, name='view_application'),
 
     # path('view_application/<int:application_id>/', views.view_user_application, name='view_user_application'),
