@@ -52,6 +52,10 @@ def signup(request):
             user.groups.add(group)  # Add the user to the "users" group
             messages.info(request, "New User Created")
             return redirect('signin')
+        else:
+            print("Form errors:",form.errors)
+    else:
+        form=UserAddForm()        
     return render(request, "signup.html", {"form": form})
 
 
